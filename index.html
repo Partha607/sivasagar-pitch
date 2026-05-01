@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Investor Pitch: Sivasagar Tourism Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d6a84f;
+      --gold-dark: #b88a3e;
+      --cream: #fff6df;
+      --bg: #0a0e0c;
+      --paper: #fdfaf0;
+      --shadow: 0 40px 100px rgba(0,0,0,0.6);
+      --page-duration: 0.9s;
+      --spine-width: 15px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      background-image: radial-gradient(circle at center, #1a1f1c 0%, #0a0e0c 100%);
+      color: #333;
+      font-family: 'Inter', system-ui, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Deck / Book Container */
+    .deck {
+      position: relative;
+      width: 90vw;
+      height: 60vw;
+      max-width: 1100px;
+      max-height: 730px;
+      perspective: 3000px;
+    }
+
+    /* The Spine Effect */
+    .deck::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 2%;
+      height: 96%;
+      width: 20px;
+      background: #222;
+      border-radius: 5px 0 0 5px;
+      z-index: 0;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: var(--paper);
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      transition: transform var(--page-duration) cubic-bezier(0.645, 0.045, 0.355, 1);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 2px 8px 8px 2px;
+      backface-visibility: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Page Edge Gradient */
+    .slide::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0,0,0,0.15) 0%, transparent 100%);
+      z-index: 10;
+    }
+
+    .slide.active {
+      z-index: 100;
+      pointer-events: auto;
+      transform: rotateY(0deg);
+      box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+    }
+
+    .slide.flipped {
+      transform: rotateY(-180deg);
+      z-index: 1;
+      transition: transform var(--page-duration) cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    .slide.flipping {
+      z-index: 200 !important;
+      visibility: visible !important;
+    }
+
+    /* Page Shading and Curl Effect */
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.1) 100%);
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* Spine Shadow */
+    .slide::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 20%, transparent 100%);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .slide-content {
+      padding: 60px 80px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    }
+
+    .slide img.full-page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide img.full-page.contain {
+      object-fit: contain;
+      background: #fff; /* Match slide background or use white for contained slides */
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: #1a1a1a;
+    }
+
+    .gold { color: var(--gold-dark); }
+
+    .lead {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      line-height: 1.6;
+      color: #444;
+      max-width: 850px;
+      margin-bottom: 40px;
+    }
+
+    /* Specific Slide Styles */
+    .slide.hero {
+      background: linear-gradient(135deg, #1a1f1c 0%, #050706 100%);
+      color: var(--cream);
+      border: 1px solid var(--gold);
+    }
+    .slide.hero .slide-content { background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png'); }
+    .slide.hero h1, .slide.hero .eyebrow { color: var(--gold); }
+    .slide.hero .lead { color: rgba(255,255,255,0.8); }
+
+    .slide.plane {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('plane.png');
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+    .slide.plane .slide-content { background-image: none; }
+    .slide.plane h2 { color: white; }
+    .slide.plane .lead { color: rgba(255,255,255,0.9); }
+    .slide.plane .card { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); }
+    .slide.plane .card h4 { color: var(--gold); }
+    .slide.plane .card p { color: white; }
+
+    .slide.thank-you {
+      background: var(--bg);
+      color: var(--gold);
+      text-align: center;
+    }
+    .slide.thank-you .slide-content { background-image: none; align-items: center; }
+
+    /* UI Elements */
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .grid { display: grid; gap: 30px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      background: rgba(214, 168, 79, 0.08);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid rgba(214, 168, 79, 0.15);
+    }
+
+    .card h4 { margin-bottom: 12px; font-size: 1.2rem; }
+
+    .big-number {
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(214, 168, 79, 0.2);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      color: var(--gold-dark);
+    }
+
+    .slide-number {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      font-weight: 700;
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+
+    .footer-note {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      font-size: 0.8rem;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* Controls */
+    .controls {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.3);
+      padding: 10px 25px;
+      border-radius: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .control-btn {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .control-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+
+    .restart-btn {
+      background: var(--gold);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 15px rgba(214, 168, 79, 0.4);
+    }
+
+    .restart-btn:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 168, 79, 0.5);
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 900px) {
+      .deck {
+        width: 95vw;
+        height: 70vh;
+        max-height: 600px;
+        perspective: 2000px;
+      }
+      .slide-content { 
+        padding: 40px 25px; 
+        justify-content: flex-start;
+      }
+      .eyebrow { font-size: 0.8rem; margin-bottom: 12px; }
+      h1, h2 { margin-bottom: 16px; }
+      .lead { margin-bottom: 24px; }
+      .grid { gap: 15px; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
+      .big-number { font-size: 2.5rem; }
+      .slide-number, .footer-note { display: none; }
+      
+      .controls {
+        bottom: 20px;
+        padding: 8px 15px;
+        gap: 10px;
+      }
+      .control-btn {
+        width: 40px;
+        height: 40px;
+      }
+      .hint { bottom: 75px; font-size: 0.7rem; }
+    }
+
+    @media (max-height: 600px) and (orientation: landscape) {
+      .deck { height: 85vh; width: 70vw; }
+      h1, h2 { font-size: 1.8rem; }
+      .lead { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hint">Scroll or use Arrows to turn pages</div>
+
+  <main class="deck">
+    <!-- Slide 0: Cover -->
+    <section class="slide hero active" id="s0">
+      <div class="slide-content">
+        <div class="eyebrow">Investor Pitch</div>
+        <h1>Sivasagar Tourism Platform</h1>
+        <p class="lead">A premium, bookable destination operating system for the heart of Upper Assam.</p>
+        <div class="tagline">
+          <span class="pill">Heritage</span>
+          <span class="pill">Culture</span>
+          <span class="pill">Experience</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 1: Image -->
+    <section class="slide" id="s1">
+      <img src="Slide-1.png" alt="Vision" class="full-page contain">
+    </section>
+
+    <!-- Slide 2: Image -->
+    <section class="slide" id="s2">
+      <img src="Slide-2.png" alt="Verdict" class="full-page">
+    </section>
+
+    <!-- Slide 3: Image -->
+    <section class="slide" id="s3">
+      <img src="Slide-3.png" alt="The Gap" class="full-page">
+    </section>
+
+    <!-- Slide 4: Image -->
+    <section class="slide" id="s4">
+      <img src="Slide-4.png" alt="Market Timing" class="full-page contain">
+    </section>
+
+    <!-- Slide 5: Image -->
+    <section class="slide" id="s5">
+      <img src="Slide-5.png" alt="Business Model" class="full-page">
+    </section>
+
+    <!-- Slide 6: Hero Asset (Plane) -->
+    <section class="slide plane" id="s6">
+      <div class="slide-content">
+        <div class="eyebrow">Strategic Gateway</div>
+        <h2>Seamless Connectivity</h2>
+        <p class="lead">Positioning Sivasagar as the premium hub for upper Assam tourism.</p>
+        <div class="grid grid-2">
+          <div class="card">
+            <h4>Regional Access</h4>
+            <p>Direct connectivity to Dibrugarh and Jorhat airports.</p>
+          </div>
+          <div class="card">
+            <h4>Local Impact</h4>
+            <p>Revitalizing local infrastructure through high-value tourism.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Image -->
+    <section class="slide" id="s7">
+      <img src="Slide-7.png" alt="Product Lines" class="full-page">
+    </section>
+
+    <!-- Slide 8: Image -->
+    <section class="slide" id="s8">
+      <img src="Slide-8.png" alt="Platform Strategy" class="full-page">
+    </section>
+
+    <!-- Slide 9: Image -->
+    <section class="slide" id="s9">
+      <img src="Slide-9.png" alt="Roadmap" class="full-page">
+    </section>
+
+    <!-- Slide 11: Thank You -->
+    <section class="slide thank-you" id="s11">
+      <div class="slide-content">
+        <h1 class="gold">Thank You.</h1>
+        <p class="lead" style="color: white; opacity: 0.7;">Let's build the future of Assam Tourism together.</p>
+        <button class="restart-btn" id="start-over-main">Start Over</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="controls">
+    <button class="control-btn" id="prev" title="Previous Page">←</button>
+    <button class="control-btn" id="start-over" title="Start Over">↺</button>
+    <button class="control-btn" id="next" title="Next Page">→</button>
+  </div>
+
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'flipped');
+        
+        if (index < current) {
+          slide.classList.add('flipped');
+          slide.style.zIndex = index + 1;
+          slide.style.visibility = (index >= current - 1) ? 'visible' : 'hidden';
+        } else if (index === current) {
+          slide.classList.add('active');
+          slide.style.zIndex = 100;
+          slide.style.visibility = 'visible';
+        } else {
+          slide.style.zIndex = total - index;
+          slide.style.visibility = (index === current + 1) ? 'visible' : 'hidden';
+        }
+      });
+    }
+
+    let isAnimating = false;
+    function nextSlide() {
+      if (current < total - 1 && !isAnimating) {
+        isAnimating = true;
+        const flippingSlide = slides[current];
+        flippingSlide.classList.add('flipping');
+        current++;
+        updateSlides();
+        setTimeout(() => {
+          flippingSlide.classList.remove('flipping');
+          isAnimating = false;
+        }, 900);
+      }
+    }
+
+    function prevSlide() {
+      if (current > 0 && !isAnimating) {
+        isAnimating = true;
+        current--;
+        const flippingSlide = slides[current];
+        flippingSlide.classList.add('flipping');
+        updateSlides();
+        setTimeout(() => {
+          flippingSlide.classList.remove('flipping');
+          isAnimating = false;
+        }, 900);
+      }
+    }
+
+    function startOver() {
+      current = 0;
+      updateSlides();
+    }
+
+    // Scroll Events (Throttled)
+    let lastScroll = 0;
+    window.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastScroll < 1000) return; // 1s throttle for animation
+      
+      if (e.deltaY > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      lastScroll = now;
+    });
+
+    // Keyboard Events
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+      if (e.key === 'r' || e.key === 'R') startOver();
+    });
+
+    // Click Events
+    document.getElementById('next').addEventListener('click', nextSlide);
+    document.getElementById('prev').addEventListener('click', prevSlide);
+    document.getElementById('start-over').addEventListener('click', startOver);
+    document.getElementById('start-over-main').addEventListener('click', startOver);
+
+    // Touch Support for Mobile
+    let touchStart = 0;
+    window.addEventListener('touchstart', (e) => touchStart = e.touches[0].clientX);
+    window.addEventListener('touchend', (e) => {
+      let touchEnd = e.changedTouches[0].clientX;
+      if (touchStart - touchEnd > 50) nextSlide();
+      if (touchEnd - touchStart > 50) prevSlide();
+    });
+  </script>
+</body>
+</html>
