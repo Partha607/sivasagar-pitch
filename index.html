@@ -62,7 +62,8 @@
       height: 100%;
       top: 0;
       left: 0;
-      background: var(--paper);
+      background: var(--paper) url('ornamental-texture.png');
+      background-size: cover;
       transform-style: preserve-3d;
       transform-origin: left center;
       transition: transform var(--page-duration) cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -150,7 +151,7 @@
 
     .slide img.full-page.contain {
       object-fit: contain;
-      background: #fff; /* Match slide background or use white for contained slides */
+      background: transparent;
     }
 
     h1, h2 {
@@ -363,6 +364,14 @@
         height: 40px;
       }
       .hint { bottom: 75px; font-size: 0.7rem; }
+
+      /* Fit Slide 6 Background on Mobile */
+      .slide.plane {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-color: #000;
+      }
     }
 
     @media (max-height: 600px) and (orientation: landscape) {
@@ -397,12 +406,12 @@
 
     <!-- Slide 2: Image -->
     <section class="slide" id="s2">
-      <img src="Slide-2.png" alt="Verdict" class="full-page">
+      <img src="Slide-2.png" alt="Verdict" class="full-page contain">
     </section>
 
     <!-- Slide 3: Image -->
     <section class="slide" id="s3">
-      <img src="Slide-3.png" alt="The Gap" class="full-page">
+      <img src="Slide-3.png" alt="The Gap" class="full-page contain">
     </section>
 
     <!-- Slide 4: Image -->
@@ -412,7 +421,7 @@
 
     <!-- Slide 5: Image -->
     <section class="slide" id="s5">
-      <img src="Slide-5.png" alt="Business Model" class="full-page">
+      <img src="Slide-5.png" alt="Business Model" class="full-page contain">
     </section>
 
     <!-- Slide 6: Hero Asset (Plane) -->
@@ -436,17 +445,17 @@
 
     <!-- Slide 7: Image -->
     <section class="slide" id="s7">
-      <img src="Slide-7.png" alt="Product Lines" class="full-page">
+      <img src="Slide-7.png" alt="Product Lines" class="full-page contain">
     </section>
 
     <!-- Slide 8: Image -->
     <section class="slide" id="s8">
-      <img src="Slide-8.png" alt="Platform Strategy" class="full-page">
+      <img src="Slide-8.png" alt="Platform Strategy" class="full-page contain">
     </section>
 
     <!-- Slide 9: Image -->
     <section class="slide" id="s9">
-      <img src="Slide-9.png" alt="Roadmap" class="full-page">
+      <img src="Slide-9.png" alt="Roadmap" class="full-page contain">
     </section>
 
     <!-- Slide 11: Thank You -->
